@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   
   # == Constants ============================================================
   
-  ROLES = [:admin, :regular_user]
+  ROLES = %W{admin regular_user}
   
   # == Extensions ===========================================================
 
@@ -48,5 +48,4 @@ class User < ActiveRecord::Base
   def password_required?
     self.new_record?
   end
-
 end

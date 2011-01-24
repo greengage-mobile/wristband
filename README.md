@@ -100,10 +100,9 @@ The basic columns are defined as such:
 
     create_table :users do |t|
       t.string :email
-      t.string :email_validation_key
-      t.datetime :validated_at
-      t.string :password_crypt, :limit => 40
+      t.string :password_hash, :limit => 40
       t.string :password_salt,  :limit => 40
+      t.string :perishable_token
       t.string :remember_token
       t.string :role
       t.timestamps

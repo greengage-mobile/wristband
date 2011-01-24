@@ -40,7 +40,7 @@ class NewUser < ActiveRecord::Base
   column :email
   column :email_validation_key
   column :validated_at
-  column :password_crypt
+  column :password_hash
   column :password_salt
   column :remember_token
   column :role

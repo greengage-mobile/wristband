@@ -11,21 +11,32 @@ class WristbandGenerator < Rails::Generators::Base
   def generate_controllers
     copy_file 'app/controllers/users_controller.rb', 'app/controllers/users_controller.rb'
     copy_file 'app/controllers/sessions_controller.rb', 'app/controllers/sessions_controller.rb'
+    copy_file 'app/controllers/passwords_controller.rb', 'app/controllers/passwords_controller.rb'
   end
 
   def generate_views
     copy_file 'app/views/users/show.html.haml', 'app/views/users/show.html.haml'
     copy_file 'app/views/sessions/new.html.haml', 'app/views/sessions/new.html.haml'
-    
+    copy_file 'app/views/passwords/new.html.haml', 'app/views/passwords/new.html.haml'
+    copy_file 'app/views/passwords/edit.html.haml', 'app/views/passwords/edit.html.haml'
   end
+  
   def generate_user_mailer
     copy_file 'app/mailers/user_mailer.rb', 'app/mailers/user_mailer.rb'
-    copy_file 'app/views/user_mailer/forgot_password.text.html.rhtml', 'app/views/user_mailer/forgot_password.text.html.rhtml'
-    copy_file 'app/views/user_mailer/forgot_password.text.plain.rhtml', 'app/views/user_mailer/forgot_password.text.plain.rhtml'
-    copy_file 'app/views/user_mailer/email_verification.text.html.rhtml', 'app/views/user_mailer/email_verification.text.html.rhtml'
-    copy_file 'app/views/user_mailer/email_verification.text.plain.rhtml', 'app/views/user_mailer/email_verification.text.plain.rhtml'
+    copy_file'app/views/user_mailer/password_reset.html.haml', 'app/views/user_mailer/password_reset.html.haml'
+    copy_file 'app/views/user_mailer/password_reset.text.haml', 'app/views/user_mailer/password_reset.text.haml'
   end
 
+  def generate_tests
+    copy_file 'test/test_helper.rb', 'test/test_helper.rb'
+    copy_file 'test/dummy/user.rb', 'test/dummy/user.rb'
+    copy_file 'test/functional/sessions_controller_test.rb', 'test/functional/sessions_controller_test.rb'
+    copy_file 'test/functional/passwords_controller_test.rb', 'test/functional/passwords_controller_test.rb'
+    copy_file 'test/unit/user_test.rb', 'test/unit/user_test.rb'
+    copy_file 'test/unit/session_user_test.rb', 'test/unit/session_user_test.rb'
+    copy_file 'test/unit/user_mailer_test.rb', 'test/unit/user_mailer_test.rb'
+  end
+  
   def generate_migration
     destination   = File.expand_path('db/migrate/01_create_users_table.rb', self.destination_root)
     migration_dir = File.dirname(destination)
@@ -43,14 +54,5 @@ class WristbandGenerator < Rails::Generators::Base
     require "rails/generators/#{orm}"
     "#{orm.to_s.camelize}::Generators::Base".constantize.next_migration_number(dirname)
   end
-  
-  # def generate_routes
-  #   route "get '/login', :to => 'sessions#new'"
-  #   route "post '/login', :to => 'sessions#create'"
-  #   route "get '/logout', :to => 'sessions#destroy'"
-  #   route "match '/forgot_password', :to => 'users#forgot_password'"
-  #   route "resources :users"
-  #   route "match '/register', :to => 'users#new'"
-  # end
   
 end

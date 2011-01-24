@@ -26,7 +26,7 @@ module Wristband
       class_eval do
         include Wristband::UserExtensions
         
-        options[:password_column] ||= :password_crypt
+        options[:password_column] ||= :password_hash
         
         # These two are used on the login form
         attr_accessor :password
@@ -82,5 +82,3 @@ end
 
 ActiveRecord::Base.send(:extend, Wristband::ClassMethods)
 ActionController::Base.send(:include, Wristband::ApplicationExtensions)
-
-class UserVerificationError < StandardError; end

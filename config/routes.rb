@@ -1,11 +1,9 @@
-Rails::Application.routes.draw do
+Rails.application.routes.draw do
 
-  post '/login', :to => 'sessions#create'
-  get '/login', :to => 'sessions#new'
-  get '/logout', :to => 'sessions#destroy'
-  match '/forgot_password', :to => 'sessions#forgot_password'
+  post '/login' => 'sessions#create'
+  get '/login' => 'sessions#new'
+  get '/logout' => 'sessions#destroy'
 
-  resources :users
-  match '/register', :to => 'users#new'
-
+  resources :users  
+  resources :passwords, :only => [:new, :create, :edit, :update]
 end

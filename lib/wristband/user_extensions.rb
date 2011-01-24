@@ -28,16 +28,7 @@ module Wristband
           end
         end
       end
-    
-      def verify_email!(email_validation_key)
-        if user = find_by_email_validation_key(email_validation_key)
-          user.update_attribute(:validated_at, Time.now.to_s(:db))
-          user
-        else
-          raise UserVerificationError, 'We were not able to verify your account or it may have been verified already. Please contact us for assistance.'.t
-        end
-      end
-    
+      
       def roles_for_select
         self.class.wristband[:roles].collect{ |k| [ k.to_s.titleize, k.to_s] }
       end
@@ -72,16 +63,15 @@ module Wristband
         self.send(self.class.wristband[:password_column]) == Wristband::Support.encrypt_with_salt(string, self.password_salt)
       end
     
-      def password_crypted?
-        self.password_salt and !self.password_salt.empty?
-      end
-    
-      def password_crypt=(value)
-        if (value != read_attribute(:password_crypt))
+      def password_hash=(value)
+        if (value != read_attribute(:password_hash))
           initialize_token
         end
+        write_attribute(:password_hash, value)
+      end
       
-        write_attribute(:password_crypt, value)
+      def reset_perishable_token!
+        update_attribute(:perishable_token, Wristband::Support.random_salt.gsub(/[^A-Za-z0-9]/,''))
       end
       
     end

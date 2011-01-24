@@ -4,7 +4,7 @@ TestDummy.declare(User) do
   end
 
   dummy :password do
-    'passpass'
+    'password'
   end
 
   dummy :role do

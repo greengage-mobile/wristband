@@ -14,14 +14,17 @@ ActiveRecord::Schema.define(:version => 1) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.string   "email_validation_key"
-    t.datetime "validated_at"
-    t.string   "password_crypt",       :limit => 40
-    t.string   "password_salt",        :limit => 40
+    t.string   "password_hash",    :limit => 40
+    t.string   "password_salt",    :limit => 40
+    t.string   "perishable_token"
     t.string   "remember_token"
     t.string   "role"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"
+  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
 end

@@ -2,10 +2,9 @@ class CreateUsersTable < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
       t.string :email
-      t.string :email_validation_key
-      t.datetime :validated_at
-      t.string :password_crypt, :limit => 40
+      t.string :password_hash, :limit => 40
       t.string :password_salt,  :limit => 40
+      t.string :perishable_token
       t.string :remember_token
       t.string :role
       t.timestamps
@@ -18,6 +17,9 @@ class CreateUsersTable < ActiveRecord::Migration
       # t.string :zip
       # t.string :ip
     end
+    add_index :users, :email
+    add_index :users, :perishable_token
+    add_index :users, :remember_token
   end
   
   def self.down

@@ -27,6 +27,7 @@ module Wristband
       # Logs a user out and deletes the remember_token.
       def logout
         current_user.update_attribute(:remember_token, nil) if current_user
+        self.current_user = nil
         cookies.delete(:login_token)    
         reset_session
       end  

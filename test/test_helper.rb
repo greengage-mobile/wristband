@@ -3,7 +3,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
 class ActiveSupport::TestCase
-  self.use_transactional_fixtures = false
+  self.use_transactional_fixtures = true
   self.use_instantiated_fixtures = false
   
   def data_path(name)
@@ -42,10 +42,8 @@ class ActiveSupport::TestCase
       if (v != map[k])
         a << k
       end
-
       a
     end
-    
     assert_equal map, result_map, "Difference: #{map.slice(*differences).inspect} vs #{result_map.slice(*differences).inspect}"
   end
   
@@ -64,9 +62,7 @@ class ActiveSupport::TestCase
     end
 
     session[:user_id] = user.id
-    
     token = Wristband::Support.encrypt_with_salt(user.id.to_s, Time.now.to_f.to_s)
-      
     cookies[:login_token] = {
       :value => token,
       :expires => 2.weeks.from_now.utc
