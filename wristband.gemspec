@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{wristband}
-  s.version = "0.0.0"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jack Neto", "The Working Group Inc"]
-  s.date = %q{2011-01-23}
+  s.date = %q{2011-01-24}
   s.description = %q{Provides a starting point for user authentication}
   s.email = %q{jack@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -23,17 +23,19 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "app/controllers/application_controller.rb",
+    "app/controllers/passwords_controller.rb",
     "app/controllers/sessions_controller.rb",
     "app/controllers/users_controller.rb",
+    "app/helpers/form_helper.rb",
     "app/mailers/user_mailer.rb",
     "app/models/session_user.rb",
     "app/models/user.rb",
     "app/views/layouts/application.html.erb",
+    "app/views/passwords/edit.html.haml",
+    "app/views/passwords/new.html.haml",
     "app/views/sessions/new.html.haml",
-    "app/views/user_mailer/email_verification.text.html.rhtml",
-    "app/views/user_mailer/email_verification.text.plain.rhtml",
-    "app/views/user_mailer/forgot_password.text.html.rhtml",
-    "app/views/user_mailer/forgot_password.text.plain.rhtml",
+    "app/views/user_mailer/password_reset.html.haml",
+    "app/views/user_mailer/password_reset.text.haml",
     "app/views/users/show.html.haml",
     "config.ru",
     "config/application.rb",
@@ -43,6 +45,7 @@ Gem::Specification.new do |s|
     "config/environments/development.rb",
     "config/environments/production.rb",
     "config/environments/test.rb",
+    "config/initializers/formatted_form_builder.rb",
     "config/initializers/wristband.rb",
     "config/locales/en.yml",
     "config/routes.rb",
@@ -58,10 +61,14 @@ Gem::Specification.new do |s|
     "public/robots.txt",
     "script/rails",
     "test/dummy/user.rb",
+    "test/functional/passwords_controller_test.rb",
+    "test/functional/sessions_controller_test.rb",
     "test/test_helper.rb",
     "test/unit/has_authorities_test.rb",
     "test/unit/session_user_test.rb",
+    "test/unit/user_mailer_test.rb",
     "test/unit/user_test.rb",
+    "test/unit/wristband_test.rb",
     "wristband.gemspec"
   ]
   s.homepage = %q{http://github.com/twg/wristband}
@@ -70,10 +77,14 @@ Gem::Specification.new do |s|
   s.summary = %q{An authentication engine}
   s.test_files = [
     "test/dummy/user.rb",
+    "test/functional/passwords_controller_test.rb",
+    "test/functional/sessions_controller_test.rb",
     "test/test_helper.rb",
     "test/unit/has_authorities_test.rb",
     "test/unit/session_user_test.rb",
-    "test/unit/user_test.rb"
+    "test/unit/user_mailer_test.rb",
+    "test/unit/user_test.rb",
+    "test/unit/wristband_test.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -83,14 +94,14 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rails>, ["= 3.0.3"])
       s.add_runtime_dependency(%q<haml>, ["= 3.0.25"])
-      s.add_development_dependency(%q<sqlite3-ruby>, [">= 0"])
+      s.add_development_dependency(%q<sqlite3>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_runtime_dependency(%q<rails>, [">= 3.0.3"])
       s.add_runtime_dependency(%q<haml>, [">= 3.0.25"])
     else
       s.add_dependency(%q<rails>, ["= 3.0.3"])
       s.add_dependency(%q<haml>, ["= 3.0.25"])
-      s.add_dependency(%q<sqlite3-ruby>, [">= 0"])
+      s.add_dependency(%q<sqlite3>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<rails>, [">= 3.0.3"])
       s.add_dependency(%q<haml>, [">= 3.0.25"])
@@ -98,7 +109,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<rails>, ["= 3.0.3"])
     s.add_dependency(%q<haml>, ["= 3.0.25"])
-    s.add_dependency(%q<sqlite3-ruby>, [">= 0"])
+    s.add_dependency(%q<sqlite3>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<rails>, [">= 3.0.3"])
     s.add_dependency(%q<haml>, [">= 3.0.25"])
