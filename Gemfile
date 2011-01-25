@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
 gem 'haml', '3.0.25'
-gem 'formatted_form'
+gem 'formatted_form', '1.0.0'
 
 group :development, :test do
   gem 'sqlite3'

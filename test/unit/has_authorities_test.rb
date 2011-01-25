@@ -33,16 +33,9 @@ class NewUser < ActiveRecord::Base
     columns << ActiveRecord::ConnectionAdapters::Column.new(name.to_s, default, sql_type.to_s, null)
   end
 
-  column :email, :string
-  column :to_email, :string
-  column :article_id, :integer
-  column :message, :text
   column :email
-  column :email_validation_key
-  column :validated_at
   column :password_hash
   column :password_salt
-  column :remember_token
   column :role
 
   wristband :has_authorities => true

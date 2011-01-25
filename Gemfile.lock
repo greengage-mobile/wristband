@@ -80,7 +80,7 @@ PLATFORMS
 
 DEPENDENCIES
   faker
-  formatted_form
+  formatted_form (= 1.0.0)
   haml (= 3.0.25)
   jeweler
   rails (= 3.0.3)
