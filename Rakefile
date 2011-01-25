@@ -14,6 +14,7 @@ begin
     gem.authors     = ['Jack Neto', 'The Working Group Inc']
     gem.add_dependency('rails', '>=3.0.3')
     gem.add_dependency('haml', '>=3.0.25')
+    gem.add_dependency('formatted_form', '>=1.0.0')
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

@@ -34,6 +34,7 @@ GEM
       abstract (>= 1.0.0)
     faker (0.9.4)
       i18n (~> 0.4)
+    formatted_form (1.0.0)
     git (1.2.5)
     haml (3.0.25)
     i18n (0.5.0)
@@ -79,6 +80,7 @@ PLATFORMS
 
 DEPENDENCIES
   faker
+  formatted_form
   haml (= 3.0.25)
   jeweler
   rails (= 3.0.3)
