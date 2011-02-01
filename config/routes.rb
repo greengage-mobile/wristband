@@ -1,8 +1,10 @@
-Rails.application.routes.draw do
-  post '/login' => 'sessions#create'
-  get '/login' => 'sessions#new'
-  get '/logout' => 'sessions#destroy'
+if defined?(Wristband::Application)
+  Rails.application.routes.draw do
+    post  '/login' => 'sessions#create'
+    get   '/login' => 'sessions#new'
+    get   '/logout' => 'sessions#destroy'
 
-  resources :users  
-  resources :passwords, :only => [:new, :create, :edit, :update]
+    resources :users  
+    resources :passwords, :only => [:new, :create, :edit, :update]
+  end
 end
