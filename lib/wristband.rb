@@ -22,6 +22,7 @@ module Wristband
       options[:after_authentication]  ||= []
       options[:has_authorities]       ||= false
       options[:roles]                 ||= []
+      options[:legacy_password]       ||= {}
 
       class_eval do
         include Wristband::UserExtensions
@@ -53,7 +54,8 @@ module Wristband
         :before_authentication_chain  => [options[:before_authentication]].flatten,
         :after_authentication_chain   => [options[:after_authentication]].flatten,
         :password_column              => options[:password_column],
-        :roles                        => options[:roles]
+        :roles                        => options[:roles],
+        :legacy_password              => options[:legacy_password]
       }
       
       if options[:has_authorities]

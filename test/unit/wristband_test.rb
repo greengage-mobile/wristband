@@ -11,6 +11,7 @@ class WristbandTest < ActiveSupport::TestCase
       initialize_token
       encrypt_password
       password_match?
+      matches_legacy_password?
       password_hash=
       is_admin?
       is_regular_user?
@@ -46,6 +47,7 @@ class WristbandTest < ActiveSupport::TestCase
     assert_equal User.wristband[:after_authentication_chain], []
     assert_equal User.wristband[:password_column], :password_hash
     assert_equal User.wristband[:roles], ['admin', 'regular_user']
+    assert_equal User.wristband[:legacy_password], {}
   end
   
   def test_authentication_by_email

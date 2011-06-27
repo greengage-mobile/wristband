@@ -59,8 +59,28 @@ module Wristband
         self.send("#{self.class.wristband[:password_column]}=", Wristband::Support.encrypt_with_salt(self.password, self.password_salt))
       end
     
+      # 231badb19b93e44f47da1bd64a8147f2
       def password_match?(string)
-        self.send(self.class.wristband[:password_column]) == Wristband::Support.encrypt_with_salt(string, self.password_salt)
+        if matches_legacy_password?(string)
+          self.password = string
+          initialize_salt
+          encrypt_password
+          self.send("#{self.class.wristband[:legacy_password][:column_name]}=", nil)
+          self.save
+        else
+          self.send(self.class.wristband[:password_column]) == Wristband::Support.encrypt_with_salt(string, self.password_salt)
+        end
+      end
+      
+      def matches_legacy_password?(string)
+        return unless self.class.wristband[:legacy_password][:column_name].present? && self.send(self.class.wristband[:legacy_password][:column_name]).present?
+        
+        case self.class.wristband[:legacy_password][:encryption]
+        when :md5
+          self.send("#{self.class.wristband[:legacy_password][:column_name]}") == Digest::MD5.hexdigest(string)
+        else
+          false
+        end
       end
     
       def password_hash=(value)
@@ -73,7 +93,6 @@ module Wristband
       def reset_perishable_token!
         update_attribute(:perishable_token, Wristband::Support.random_salt.gsub(/[^A-Za-z0-9]/,''))
       end
-      
     end
   end
 end
