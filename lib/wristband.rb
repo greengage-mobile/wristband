@@ -5,7 +5,7 @@ require 'wristband/authority_check'
 
 module Wristband
 
-  VERSION = "1.0.0"
+  VERSION = "1.0.5"
 
   class Engine < ::Rails::Engine; end
 
