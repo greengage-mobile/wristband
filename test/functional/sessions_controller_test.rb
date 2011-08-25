@@ -90,4 +90,5 @@ class SessionsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:session_user).user.remember_token
     assert_equal assigns(:session_user).user.remember_token, cookies['login_token']
   end
+  
 end
