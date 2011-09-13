@@ -11,15 +11,15 @@ module Wristband
     end
 
     module InstanceMethods
-      def login(session_user)
-        login_as_user(session_user.user, session_user.remember_me)
+      def login(session_user, cookie_expires_at = 2.weeks.from_now.utc)
+        login_as_user(session_user.user, session_user.remember_me, cookie_expires_at)
       end
       
-      def login_as_user(user, remember_me=false)
+      def login_as_user(user, remember_me=false, cookie_expires_at = 2.weeks.from_now.utc)
         self.current_user = user
         if remember_me
           token = Support.encrypt_with_salt(user.id.to_s, Time.now.to_f.to_s)
-          cookies[:login_token] = { :value => token, :expires => 2.weeks.from_now.utc }
+          cookies[:login_token] = { :value => token, :expires => cookie_expires_at}
           user.update_attribute(:remember_token, token)
         end
       end
