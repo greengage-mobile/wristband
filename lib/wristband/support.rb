@@ -13,12 +13,12 @@ module Wristband
     def encrypt_with_salt(password, salt)
       return password unless (salt and !salt.empty?)
     
-      Digest::SHA1.hexdigest([ password, salt ].to_s)
+      Digest::SHA1.hexdigest([ password, salt ].join)
     end
     module_function :encrypt_with_salt
   
     def random_salt(length = nil)
-      salt = Digest::SHA1.hexdigest([ rand, rand, random_string(64), rand, rand ].to_s)
+      salt = Digest::SHA1.hexdigest([ rand, rand, random_string(64), rand, rand ].join)
     
       length ? salt[0, length] : salt
     end
