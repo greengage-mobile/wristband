@@ -26,19 +26,27 @@ class NewUserAuthorityCheck < AuthorityCheck
   
 end
 
-class NewUser < ActiveRecord::Base
-  def self.columns() @columns ||= []; end
-
-  def self.column(name, sql_type = nil, default = nil, null = true)
-    columns << ActiveRecord::ConnectionAdapters::Column.new(name.to_s, default, sql_type.to_s, null)
-  end
-
-  column :email
-  column :password_hash
-  column :password_salt
-  column :role
+class NewUser
+  include ActiveModel::Validations
+  include ActiveRecord::Callbacks
+  extend Wristband::ClassMethods
+  
+  attr_accessor :email
+  attr_accessor :password_hash
+  attr_accessor :password_salt
+  attr_accessor :role
 
   wristband :has_authorities => true
+  
+  def initialize(params = {})
+    if params
+      @email = params[:email]
+      @password_hash = params[:password_hash]
+      @password_salt = params[:password_salt]
+      @role = params[:role]
+    end
+  end
+  
 end
 
 

@@ -12,9 +12,9 @@ begin
     gem.email       = 'jack@theworkinggroup.ca'
     gem.homepage    = 'http://github.com/twg/wristband'
     gem.authors     = ['Jack Neto', 'The Working Group Inc']
-    gem.add_dependency('rails', '>=3.0.4')
-    gem.add_dependency('haml', '>=3.0.25')
-    gem.add_dependency('formatted_form', '>=1.0.0')
+    gem.add_dependency('rails', '>=3.1.0')
+    gem.add_dependency('haml', '>=3.1.3')
+    gem.add_dependency('formatted_form', '>=1.0.2')
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
