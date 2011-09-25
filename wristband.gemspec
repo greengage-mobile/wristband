@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{wristband}
-  s.version = "1.1.0"
+  s.version = "2.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jack Neto", "The Working Group Inc"]
-  s.date = %q{2011-09-13}
+  s.date = %q{2011-09-25}
   s.description = %q{Provides a starting point for user authentication}
   s.email = %q{jack@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -75,49 +75,38 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.6.2}
   s.summary = %q{An authentication engine}
-  s.test_files = [
-    "test/dummy/user.rb",
-    "test/functional/passwords_controller_test.rb",
-    "test/functional/sessions_controller_test.rb",
-    "test/test_helper.rb",
-    "test/unit/has_authorities_test.rb",
-    "test/unit/session_user_test.rb",
-    "test/unit/user_mailer_test.rb",
-    "test/unit/user_test.rb",
-    "test/unit/wristband_test.rb"
-  ]
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rails>, [">= 3.0.4"])
-      s.add_runtime_dependency(%q<haml>, [">= 3.0.25"])
-      s.add_runtime_dependency(%q<formatted_form>, [">= 0"])
+      s.add_runtime_dependency(%q<rails>, [">= 3.1.0"])
+      s.add_runtime_dependency(%q<haml>, [">= 3.1.3"])
+      s.add_runtime_dependency(%q<formatted_form>, [">= 1.0.2"])
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
-      s.add_runtime_dependency(%q<rails>, [">= 3.0.4"])
-      s.add_runtime_dependency(%q<haml>, [">= 3.0.25"])
-      s.add_runtime_dependency(%q<formatted_form>, [">= 1.0.0"])
+      s.add_runtime_dependency(%q<rails>, [">= 3.1.0"])
+      s.add_runtime_dependency(%q<haml>, [">= 3.1.3"])
+      s.add_runtime_dependency(%q<formatted_form>, [">= 1.0.2"])
     else
-      s.add_dependency(%q<rails>, [">= 3.0.4"])
-      s.add_dependency(%q<haml>, [">= 3.0.25"])
-      s.add_dependency(%q<formatted_form>, [">= 0"])
+      s.add_dependency(%q<rails>, [">= 3.1.0"])
+      s.add_dependency(%q<haml>, [">= 3.1.3"])
+      s.add_dependency(%q<formatted_form>, [">= 1.0.2"])
       s.add_dependency(%q<sqlite3>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
-      s.add_dependency(%q<rails>, [">= 3.0.4"])
-      s.add_dependency(%q<haml>, [">= 3.0.25"])
-      s.add_dependency(%q<formatted_form>, [">= 1.0.0"])
+      s.add_dependency(%q<rails>, [">= 3.1.0"])
+      s.add_dependency(%q<haml>, [">= 3.1.3"])
+      s.add_dependency(%q<formatted_form>, [">= 1.0.2"])
     end
   else
-    s.add_dependency(%q<rails>, [">= 3.0.4"])
-    s.add_dependency(%q<haml>, [">= 3.0.25"])
-    s.add_dependency(%q<formatted_form>, [">= 0"])
+    s.add_dependency(%q<rails>, [">= 3.1.0"])
+    s.add_dependency(%q<haml>, [">= 3.1.3"])
+    s.add_dependency(%q<formatted_form>, [">= 1.0.2"])
     s.add_dependency(%q<sqlite3>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
-    s.add_dependency(%q<rails>, [">= 3.0.4"])
-    s.add_dependency(%q<haml>, [">= 3.0.25"])
-    s.add_dependency(%q<formatted_form>, [">= 1.0.0"])
+    s.add_dependency(%q<rails>, [">= 3.1.0"])
+    s.add_dependency(%q<haml>, [">= 3.1.3"])
+    s.add_dependency(%q<formatted_form>, [">= 1.0.2"])
   end
 end
 
