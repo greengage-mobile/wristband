@@ -1,0 +1,7 @@
+<h1>Enter a new Password</h1>
+
+<%= form_for @user, :url => { :action => :update, :id => params[:id] } do |form| %>
+  <%= form.password_field :password, :autocomplete => :off %>
+  <%= form.password_field :password_confirmation, :label => 'Password Confim' %>
+  <%= form.submit 'Update' %>
+<% end %>

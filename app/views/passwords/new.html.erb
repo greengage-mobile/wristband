@@ -1,0 +1,7 @@
+<h1>Reset your password</h1>
+
+<%= form_tag passwords_path do %>
+  <label>Email</label>
+  <%= text_field_tag :email %>
+  <%= submit_tag 'Send Reset Password Email' %>
+<% end %> 
