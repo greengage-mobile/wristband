@@ -81,23 +81,17 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_runtime_dependency(%q<rails>, [">= 3.1.0"])
-      s.add_runtime_dependency(%q<haml>, [">= 3.1.3"])
-      s.add_runtime_dependency(%q<formatted_form>, [">= 1.0.2"])
     else
       s.add_dependency(%q<rails>, [">= 3.1.0"])
       s.add_dependency(%q<sqlite3>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<rails>, [">= 3.1.0"])
-      s.add_dependency(%q<haml>, [">= 3.1.3"])
-      s.add_dependency(%q<formatted_form>, [">= 1.0.2"])
     end
   else
     s.add_dependency(%q<rails>, [">= 3.1.0"])
     s.add_dependency(%q<sqlite3>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<rails>, [">= 3.1.0"])
-    s.add_dependency(%q<haml>, [">= 3.1.3"])
-    s.add_dependency(%q<formatted_form>, [">= 1.0.2"])
   end
 end
 
