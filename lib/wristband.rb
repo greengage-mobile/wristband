@@ -23,18 +23,23 @@ module Wristband
       options[:has_authorities]       ||= false
       options[:roles]                 ||= []
       options[:legacy_password]       ||= {}
+      options[:encryption_type]       ||= :bcrypt
 
       class_eval do
         include Wristband::UserExtensions
         
-        options[:password_column] ||= :password_hash
+        options[:password_column] ||= :encrypted_password
         
         # These two are used on the login form
         attr_accessor :password
         attr_accessor :password_confirmation
         
-        before_save :encrypt_password
-          
+        if defined?(ActiveRecord)
+          before_save :encrypt_password
+        elsif defined?(Sequel)
+          before_save :encrypt_password
+        end
+        
         # Add roles
         unless options[:roles].blank?
           options[:roles].each do |role|
@@ -55,7 +60,8 @@ module Wristband
         :after_authentication_chain   => [options[:after_authentication]].flatten,
         :password_column              => options[:password_column],
         :roles                        => options[:roles],
-        :legacy_password              => options[:legacy_password]
+        :legacy_password              => options[:legacy_password],
+        :encryption_type              => options[:encryption_type]
       }
       
       if options[:has_authorities]
@@ -81,6 +87,10 @@ module Wristband
   
 end
 
+if defined?(ActiveRecord)
+  ActiveRecord::Base.send(:extend, Wristband::ClassMethods)
+elsif defined?(Sequel)
+  Sequel::Model.send(:extend, Wristband::ClassMethods)
+end
 
-ActiveRecord::Base.send(:extend, Wristband::ClassMethods)
 ActionController::Base.send(:include, Wristband::ApplicationExtensions)

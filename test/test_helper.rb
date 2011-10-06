@@ -62,7 +62,7 @@ class ActiveSupport::TestCase
     end
 
     session[:user_id] = user.id
-    token = Wristband::Support.encrypt_with_salt(user.id.to_s, Time.now.to_f.to_s)
+    token = Wristband::Support.encrypt_with_salt(user.id.to_s, Wristband::Support.random_salt)
     cookies[:login_token] = {
       :value => token,
       :expires => 2.weeks.from_now.utc

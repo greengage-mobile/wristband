@@ -46,20 +46,19 @@ module Wristband
       end
 
       def initialize_salt
-        self.password_salt = Wristband::Support.random_salt
+        self.password_salt = Wristband::Support.random_salt(nil, self.class.wristband[:encryption_type])
       end
 
       def initialize_token
-        self.remember_token = Wristband::Support.random_salt(16)
+        self.remember_token = Wristband::Support.random_salt(16, self.class.wristband[:encryption_type])
       end
     
       def encrypt_password
         initialize_salt if new_record?
         return if self.password.blank?
-        self.send("#{self.class.wristband[:password_column]}=", Wristband::Support.encrypt_with_salt(self.password, self.password_salt))
+        self.send("#{self.class.wristband[:password_column]}=", Wristband::Support.encrypt_with_salt(self.password, self.password_salt, self.class.wristband[:encryption_type]))
       end
     
-      # 231badb19b93e44f47da1bd64a8147f2
       def password_match?(string)
         if matches_legacy_password?(string)
           self.password = string
@@ -68,7 +67,7 @@ module Wristband
           self.send("#{self.class.wristband[:legacy_password][:column_name]}=", nil)
           self.save
         else
-          self.send(self.class.wristband[:password_column]) == Wristband::Support.encrypt_with_salt(string, self.password_salt)
+          self.send(self.class.wristband[:password_column]) == Wristband::Support.encrypt_with_salt(string, self.password_salt, self.class.wristband[:encryption_type])
         end
       end
       
@@ -83,15 +82,15 @@ module Wristband
         end
       end
     
-      def password_hash=(value)
-        if (value != read_attribute(:password_hash))
+      def encrypted_password=(value)
+        if (value != read_attribute(:encrypted_password))
           initialize_token
         end
-        write_attribute(:password_hash, value)
+        write_attribute(:encrypted_password, value)
       end
       
       def reset_perishable_token!
-        update_attribute(:perishable_token, Wristband::Support.random_salt.gsub(/[^A-Za-z0-9]/,''))
+        update_attribute(:perishable_token, Wristband::Support.random_salt(nil, self.class.wristband[:encryption_type]).gsub(/[^A-Za-z0-9]/,''))
       end
     end
   end

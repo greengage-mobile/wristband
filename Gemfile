@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '>=3.1.0'
+gem 'bcrypt-ruby', :require => 'bcrypt'
 
 group :development, :test do
   gem 'sqlite3'

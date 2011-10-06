@@ -31,9 +31,9 @@ class SessionUserTest < ActiveSupport::TestCase
       :password => user.password
     )
     assert session_user.valid?
-    assert_equal session_user.email, user.email
-    assert_equal session_user.password, user.password
-    assert_equal session_user.user, user
+    assert_equal user.email, session_user.email
+    assert_equal user.password, session_user.password
+    assert_equal user, session_user.user
   end
   
   def test_failed_authentication

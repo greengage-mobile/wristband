@@ -1,39 +1,48 @@
 # Wristband
-Author: [The Working Group](http://www.theworkinggroup.ca)
 
----
+A lightweight solution for two major pains: **User authentication** and **Permissions**.
 
-## What is it?
-
-Wristband provides a starting point for user authentication.
-
-It handles:
+Summary:
 
 * Login and logout
-* Password storage with encryption
+* Password storage with bcrypt
 * Password recovery
-* Remember me functionality
+* Remember me
 * Authority definitions
+* Convert from old MD5 passwords
+* Extra : easy to use sample models and controlers to get you started!
+
+---
   
-  
-## Usage
+## Quick start
 
 ### 1. Add gem definition to your Gemfile:
     
     config.gem 'wristband'
     
-### 2. From withing your Rails project run:
+### 2. From within your Rails project run:
     
     bundle install
 
-## Configuration
 
-
-### In your User model
+### 3. In your User model
 
     class User < ActiveRecord::Base
-      wristband [options]
+      wristband
     end
+
+### 4. Run the generator for the sample models and controllers
+
+    rails g wristband
+
+### 4. Run the migrations
+
+    rake db:migrate
+
+
+---
+
+## Configuration
 
 ### Options:
 
@@ -55,7 +64,7 @@ It handles:
   
     wristband :roles => [:regular_user, :admin]
   
-  will generate `user.is_regular_user?` and `user.is_admin?`
+This will give you `user.is_regular_user?` and `user.is_admin?`
 
 
 **:has_authorities** - The different user authorities are defined in a separate class so as to reduce clutter in the User model itself. *Default: `false`*
@@ -64,14 +73,21 @@ It handles:
 
 Look for more details below.
 
-## Notes
+**:legacy_password** - Helps you convert from old legacy passwords to proper encryption passwords. *Default: `[]`*
 
-1. **Remember me** - If you want to automatically login a user when he comes back to your site, add `before_filter :login_from_cookie` to your AplicationController.
-2. **Authority Definitions** - Checkout the documentation on wristband/authority_check_rb
+Indicate the name of the column with the old passwords and the encryption type.
+
+    wristband :legacy_password => {:column_name => :old_password, :encryption => :md5}
 
 
+**:encryption_type** - Allows you to use the less secure SHA1 instead of BCRYPT for backwards compatibility. *Default: `:bcrypt`*
 
-## Personalization
+    wristband :encryption_type => :sha1
+
+
+---
+
+## Generators
   
 Wristband comes with a generator that provides you with all the files you need to get started
 
@@ -87,14 +103,14 @@ This will output something like:
     create  app/controllers/sessions_controller.rb
     create  app/controllers/passwords_controller.rb
     == Views ==
-    create  app/views/users/show.html.haml
-    create  app/views/sessions/new.html.haml
-    create  app/views/passwords/new.html.haml
-    create  app/views/passwords/edit.html.haml
+    create  app/views/users/show.html.erb
+    create  app/views/sessions/new.html.erb
+    create  app/views/passwords/new.html.erb
+    create  app/views/passwords/edit.html.erb
     == User Mailer ==
     create  app/mailers/user_mailer.rb
-    create  app/views/user_mailer/password_reset.html.haml
-    create  app/views/user_mailer/password_reset.text.haml
+    create  app/views/user_mailer/password_reset.html.erb
+    create  app/views/user_mailer/password_reset.text.erb
     == Test helper and Dummies ==
     create  test/test_helper.rb
     create  test/dummy/user.rb
@@ -114,7 +130,7 @@ The basic columns are defined as such:
 
     create_table :users do |t|
       t.string :email
-      t.string :password_hash, :limit => 40
+      t.string :encrypted_password, :limit => 40
       t.string :password_salt,  :limit => 40
       t.string :perishable_token
       t.string :remember_token
@@ -123,6 +139,7 @@ The basic columns are defined as such:
     end
 
 
+---
 # AuthorityCheck
 
 First you need to tell Wristband that you you want to define permissions for your user:
@@ -194,3 +211,9 @@ example:
 In this case, the 'allow_if_admin!` method will be called before any checks are performed. If the `allow!` method is executed, all subsequent tests are halted and the check is considered to have passed.
 
 Have fun!!
+
+--- 
+
+Wristband is released under the MIT license
+
+Copyright 2009-2011 Jack Neto, Scott Tadman, [The Working Group](http://www.theworkinggroup.ca)

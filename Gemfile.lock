@@ -93,6 +93,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt-ruby
   faker
   jeweler
   rails (>= 3.1.0)

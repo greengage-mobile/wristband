@@ -32,7 +32,7 @@ class NewUser
   extend Wristband::ClassMethods
   
   attr_accessor :email
-  attr_accessor :password_hash
+  attr_accessor :encrypted_password
   attr_accessor :password_salt
   attr_accessor :role
 
@@ -41,7 +41,7 @@ class NewUser
   def initialize(params = {})
     if params
       @email = params[:email]
-      @password_hash = params[:password_hash]
+      @encrypted_password = params[:encrypted_password]
       @password_salt = params[:password_salt]
       @role = params[:role]
     end

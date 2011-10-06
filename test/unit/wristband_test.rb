@@ -10,9 +10,9 @@ class WristbandTest < ActiveSupport::TestCase
       initialize_salt
       initialize_token
       encrypt_password
+      encrypted_password=
       password_match?
       matches_legacy_password?
-      password_hash=
       is_admin?
       is_regular_user?
     }.each do |method|
@@ -45,9 +45,10 @@ class WristbandTest < ActiveSupport::TestCase
     assert_equal User.wristband[:login_with_fields], [:email]
     assert_equal User.wristband[:before_authentication_chain], []
     assert_equal User.wristband[:after_authentication_chain], []
-    assert_equal User.wristband[:password_column], :password_hash
+    assert_equal User.wristband[:password_column], :encrypted_password
     assert_equal User.wristband[:roles], ['admin', 'regular_user']
     assert_equal User.wristband[:legacy_password], {}
+    assert_equal User.wristband[:encryption_type], :bcrypt
   end
   
   def test_authentication_by_email

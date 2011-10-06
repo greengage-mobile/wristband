@@ -18,17 +18,17 @@ class WristbandGenerator < Rails::Generators::Base
 
   def generate_views
     puts "\t== Views =="
-    copy_file 'app/views/users/show.html.haml', 'app/views/users/show.html.haml'
-    copy_file 'app/views/sessions/new.html.haml', 'app/views/sessions/new.html.haml'
-    copy_file 'app/views/passwords/new.html.haml', 'app/views/passwords/new.html.haml'
-    copy_file 'app/views/passwords/edit.html.haml', 'app/views/passwords/edit.html.haml'
+    copy_file 'app/views/users/show.html.erb', 'app/views/users/show.html.erb'
+    copy_file 'app/views/sessions/new.html.erb', 'app/views/sessions/new.html.erb'
+    copy_file 'app/views/passwords/new.html.erb', 'app/views/passwords/new.html.erb'
+    copy_file 'app/views/passwords/edit.html.erb', 'app/views/passwords/edit.html.erb'
   end
   
   def generate_user_mailer
     puts "\t== User Mailer =="
     copy_file 'app/mailers/user_mailer.rb', 'app/mailers/user_mailer.rb'
-    copy_file'app/views/user_mailer/password_reset.html.haml', 'app/views/user_mailer/password_reset.html.haml'
-    copy_file 'app/views/user_mailer/password_reset.text.haml', 'app/views/user_mailer/password_reset.text.haml'
+    copy_file'app/views/user_mailer/password_reset.html.erb', 'app/views/user_mailer/password_reset.html.erb'
+    copy_file 'app/views/user_mailer/password_reset.text.erb', 'app/views/user_mailer/password_reset.text.erb'
   end
 
   def generate_tests

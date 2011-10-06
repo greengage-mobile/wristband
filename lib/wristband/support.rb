@@ -10,15 +10,25 @@ module Wristband
     end
     module_function :random_string
   
-    def encrypt_with_salt(password, salt)
+    def encrypt_with_salt(password, salt, encryption_type = :bcrypt)
       return password unless (salt and !salt.empty?)
-    
-      Digest::SHA1.hexdigest([ password, salt ].join)
+
+      case encryption_type
+      when :bcrypt
+        BCrypt::Engine.hash_secret(password, salt)
+      when :sha1
+        Digest::SHA1.hexdigest([ password, salt ].join)
+      end
     end
     module_function :encrypt_with_salt
   
-    def random_salt(length = nil)
-      salt = Digest::SHA1.hexdigest([ rand, rand, random_string(64), rand, rand ].join)
+    def random_salt(length = nil, encryption_type = :bcrypt)
+      salt = case encryption_type
+      when :bcrypt
+        BCrypt::Engine.generate_salt
+      when :sha1
+        Digest::SHA1.hexdigest([ rand, rand, random_string(64), rand, rand ].join)
+      end
     
       length ? salt[0, length] : salt
     end

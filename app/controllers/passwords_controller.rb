@@ -1,4 +1,5 @@
 class PasswordsController < ApplicationController
+  skip_before_filter :login_required
   before_filter :redirect_if_logged_in, :only => [ :new, :create ]
   before_filter :load_user_by_perishable_token, :only => [:edit, :update]
   
