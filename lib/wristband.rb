@@ -1,12 +1,16 @@
+if defined?(Rails)
+  require File.expand_path('wristband/engine', File.dirname(__FILE__))
+end
+
+
 require 'wristband/user_extensions'
 require 'wristband/support'
 require 'wristband/application_extensions'
 require 'wristband/authority_check'
+require 'active_record'
 
 module Wristband
-
-  class Engine < ::Rails::Engine; end
-
+  
   class << self
     def included base #:nodoc:
       base.extend ClassMethods
