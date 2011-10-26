@@ -20,13 +20,13 @@ module Wristband
         if remember_me
           token = Support.encrypt_with_salt(user.id.to_s, Wristband::Support.random_salt, ::User.wristband[:encryption_type])
           cookies[:login_token] = { :value => token, :expires => cookie_expires_at}
-          user.update_attribute(:remember_token, token)
+          user.update_attribute(:session_token, token)
         end
       end
   
-      # Logs a user out and deletes the remember_token.
+      # Logs a user out and deletes the session_token.
       def logout
-        current_user.update_attribute(:remember_token, nil) if current_user
+        current_user.update_attribute(:session_token, nil) if current_user
         self.current_user = nil
         cookies.delete(:login_token)    
         reset_session
@@ -53,7 +53,7 @@ module Wristband
       # You can use this function as a before filter on your controllers.
       def login_from_cookie
         return if (logged_in? or !cookies[:login_token])
-        self.current_user = ::User.find_by_remember_token(cookies[:login_token])
+        self.current_user = ::User.where(:session_token => cookies[:login_token]).first
       end
     
       # You can use this function as a before filter on your controllers that require autentication.

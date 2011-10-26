@@ -5,8 +5,6 @@ require 'wristband/authority_check'
 
 module Wristband
 
-  VERSION = "1.0.5"
-
   class Engine < ::Rails::Engine; end
 
   class << self
@@ -34,11 +32,7 @@ module Wristband
         attr_accessor :password
         attr_accessor :password_confirmation
         
-        if defined?(ActiveRecord)
-          before_save :encrypt_password
-        elsif defined?(Sequel)
-          before_save :encrypt_password
-        end
+        before_save :encrypt_password
         
         # Add roles
         unless options[:roles].blank?
@@ -87,10 +81,8 @@ module Wristband
   
 end
 
-if defined?(ActiveRecord)
-  ActiveRecord::Base.send(:extend, Wristband::ClassMethods)
-elsif defined?(Sequel)
-  Sequel::Model.send(:extend, Wristband::ClassMethods)
-end
+ActiveRecord::Base.send(:extend, Wristband::ClassMethods)
 
-ActionController::Base.send(:include, Wristband::ApplicationExtensions)
+if defined?(ActionController)
+  ActionController::Base.send(:include, Wristband::ApplicationExtensions)
+end

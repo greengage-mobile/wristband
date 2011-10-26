@@ -11,6 +11,7 @@ class WristbandGenerator < Rails::Generators::Base
 
   def generate_controllers
     puts "\t== Controllers =="
+    copy_file 'app/controllers/application_controller.rb', 'app/controllers/application_controller.rb'
     copy_file 'app/controllers/users_controller.rb', 'app/controllers/users_controller.rb'
     copy_file 'app/controllers/sessions_controller.rb', 'app/controllers/sessions_controller.rb'
     copy_file 'app/controllers/passwords_controller.rb', 'app/controllers/passwords_controller.rb'

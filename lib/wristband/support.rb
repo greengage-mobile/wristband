@@ -1,3 +1,5 @@
+require 'bcrypt'
+
 module Wristband
   module Support
     CONSONANTS = %w( b c d f g h j k l m n p qu r s t v w x z ch cr fr nd ng nk nt ph pr rd sh sl sp st th tr )
@@ -15,7 +17,7 @@ module Wristband
 
       case encryption_type
       when :bcrypt
-        BCrypt::Engine.hash_secret(password, salt)
+        BCrypt::Password.create([password, salt].join)
       when :sha1
         Digest::SHA1.hexdigest([ password, salt ].join)
       end
@@ -34,5 +36,14 @@ module Wristband
     end
     module_function :random_salt
   
+    def matches?(attempt, password, salt, encryption_type = :bcrypt)
+      case encryption_type
+      when :bcrypt
+        BCrypt::Password.new(password) == [attempt, salt].join
+      when :sha1
+        Digest::SHA1.hexdigest([ attempt, salt ].join) == password
+      end
+    end
+    module_function :matches?
   end
 end

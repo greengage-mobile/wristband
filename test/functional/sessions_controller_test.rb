@@ -77,7 +77,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_nil cookies[:login_token]
     assert_nil session[:user_id]
     @regular_user.reload
-    assert_nil @regular_user.remember_token
+    assert_nil @regular_user.session_token
     assert !@controller.logged_in?
     assert_nil @controller.current_user
   end
@@ -87,8 +87,8 @@ class SessionsControllerTest < ActionController::TestCase
   def test_remember_me
     post :create, :session_user => { :email => @regular_user.email, :password => @regular_user.password , :remember_me => '1' }
     assert_equal request.session[:user_id], @regular_user.id
-    assert_not_nil assigns(:session_user).user.remember_token
-    assert_equal assigns(:session_user).user.remember_token, cookies['login_token']
+    assert_not_nil assigns(:session_user).user.session_token
+    assert_not_nil cookies['login_token']
   end
   
 end

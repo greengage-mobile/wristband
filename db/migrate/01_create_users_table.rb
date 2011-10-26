@@ -4,8 +4,8 @@ class CreateUsersTable < ActiveRecord::Migration
       t.string :email
       t.string :encrypted_password
       t.string :password_salt
+      t.string :session_token
       t.string :perishable_token
-      t.string :remember_token
       t.string :role
       t.timestamps
       # --- Other useful fields ---
@@ -19,7 +19,7 @@ class CreateUsersTable < ActiveRecord::Migration
     end
     add_index :users, :email
     add_index :users, :perishable_token
-    add_index :users, :remember_token
+    add_index :users, :session_token
   end
   
   def self.down

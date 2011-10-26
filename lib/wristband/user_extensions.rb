@@ -11,7 +11,7 @@ module Wristband
         self.execute_authentication_chain(self, self.wristband[:before_authentication_chain]) == false and return
         user = nil
         wristband[:login_with_fields].find do |field|
-          user = send("find_by_#{field}", email) 
+          user = self.where(field => email).first
         end
         (user and user.password_match?(password)) || return
         self.execute_authentication_chain(user, self.wristband[:after_authentication_chain]) == false  and return
@@ -50,7 +50,7 @@ module Wristband
       end
 
       def initialize_token
-        self.remember_token = Wristband::Support.random_salt(16, self.class.wristband[:encryption_type])
+        self.session_token = Wristband::Support.random_salt(16, self.class.wristband[:encryption_type])
       end
     
       def encrypt_password
@@ -59,15 +59,16 @@ module Wristband
         self.send("#{self.class.wristband[:password_column]}=", Wristband::Support.encrypt_with_salt(self.password, self.password_salt, self.class.wristband[:encryption_type]))
       end
     
-      def password_match?(string)
-        if matches_legacy_password?(string)
-          self.password = string
+      def password_match?(password_attempt)
+        if matches_legacy_password?(password_attempt)
+          self.password = password_attempt
           initialize_salt
           encrypt_password
           self.send("#{self.class.wristband[:legacy_password][:column_name]}=", nil)
           self.save
         else
-          self.send(self.class.wristband[:password_column]) == Wristband::Support.encrypt_with_salt(string, self.password_salt, self.class.wristband[:encryption_type])
+          current_pwd = self.send(self.class.wristband[:password_column])
+          Wristband::Support.matches?(password_attempt, current_pwd, self.password_salt, self.class.wristband[:encryption_type])
         end
       end
       

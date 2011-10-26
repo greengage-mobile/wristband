@@ -19,7 +19,7 @@ class UserTest < ActiveSupport::TestCase
     assert_errors_on user, :email, :password, :role
     assert user.errors[:email].include?("Please enter your email address")
     assert user.errors[:email].include?("The email address you entered is not valid")
-    assert user.errors[:email].include?("The email address you entered is to short")
+    assert user.errors[:email].include?("The email address you entered is too short")
     assert user.errors[:password].include?("Please choose a password")
     assert user.errors[:password].include?("The password you entered is too short (minimum is 4 characters)")
     assert user.errors[:role].include?("can't be blank")

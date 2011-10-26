@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
     :presence => {:message => 'Please enter your email address'},
     :length => {
       :within => 6..100,
-      :too_short => "The email address you entered is to short"
+      :too_short => "The email address you entered is too short"
     },
     :format => {
       :with => /^([\w.%-+]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, 
