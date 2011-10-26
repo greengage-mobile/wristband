@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{wristband}
-  s.version = "2.2.0"
+  s.version = "2.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jack Neto", "The Working Group Inc"]
-  s.date = %q{2011-10-05}
+  s.date = %q{2011-10-26}
   s.description = %q{Provides a starting point for user authentication}
   s.email = %q{jack@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
     ".DS_Store",
     "Gemfile",
     "Gemfile.lock",
+    "LICENSE",
     "README.md",
     "Rakefile",
     "VERSION",
