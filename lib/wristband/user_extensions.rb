@@ -54,8 +54,8 @@ module Wristband
       end
     
       def encrypt_password
-        initialize_salt if new_record?
         return if self.password.blank?
+        initialize_salt if new_record?
         self.send("#{self.class.wristband[:password_column]}=", Wristband::Support.encrypt_with_salt(self.password, self.password_salt, self.class.wristband[:encryption_type]))
       end
     

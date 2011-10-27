@@ -17,7 +17,7 @@ module Wristband
 
       case encryption_type
       when :bcrypt
-        BCrypt::Password.create([password, salt].join)
+        BCrypt::Engine.hash_secret([password, salt].join, salt)
       when :sha1
         Digest::SHA1.hexdigest([ password, salt ].join)
       end
