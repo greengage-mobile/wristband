@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jack Neto", "The Working Group Inc"]
-  s.date = %q{2011-10-26}
+  s.date = %q{2011-10-31}
   s.description = %q{Provides a starting point for user authentication}
   s.email = %q{jack@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -55,6 +55,7 @@ Gem::Specification.new do |s|
     "lib/wristband.rb",
     "lib/wristband/application_extensions.rb",
     "lib/wristband/authority_check.rb",
+    "lib/wristband/engine.rb",
     "lib/wristband/support.rb",
     "lib/wristband/user_extensions.rb",
     "public/robots.txt",
