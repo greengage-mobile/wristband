@@ -46,7 +46,7 @@ module Wristband
       end
 
       def initialize_salt
-        self.password_salt = Wristband::Support.random_salt(nil, self.class.wristband[:encryption_type])
+        self.password_salt ||= Wristband::Support.random_salt(nil, self.class.wristband[:encryption_type])
       end
 
       def initialize_token
