@@ -71,7 +71,7 @@ Gem::Specification.new do |s|
     "test/unit/wristband_test.rb",
     "wristband.gemspec"
   ]
-  s.homepage = %q{http://github.com/twg/wristband}
+  s.homepage = %q{https://github.com/greengage-mobile/wristband}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.6.2}
   s.summary = %q{An authentication engine}
