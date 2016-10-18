@@ -10,7 +10,7 @@ begin
     gem.summary     = 'An authentication engine'
     gem.description = 'Provides a starting point for user authentication'
     gem.email       = 'jack@theworkinggroup.ca'
-    gem.homepage    = 'http://github.com/twg/wristband'
+    gem.homepage    = 'https://github.com/greengage-mobile/wristband'
     gem.authors     = ['Jack Neto', 'The Working Group Inc']
     gem.add_dependency('rails', '>=3.1.0')
   end
